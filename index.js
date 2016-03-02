@@ -19,7 +19,9 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 app.post('/api/v1', (req, res, next) => {
-  if (req.body.token !== process.env.SLACK_TOKEN) {
+  const slackTokens = new Set(process.env.SLACK_TOKENS.split(','));
+
+  if (!slackTokens.has(req.body.token)) {
     return res.status(403).end('Invalid Slack Token');
   };
 

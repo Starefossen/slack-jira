@@ -9,7 +9,7 @@ const jira = require('./lib/jira').jira;
 describe('help', () => {
   it('returns help menue', (done) => {
     app.post('/api/v1')
-      .send({text: 'help', token: process.env.SLACK_TOKEN})
+      .send({text: 'help', token: 'foo123'})
       .expect(200)
       .expect((res) => {
         assert(/Usage: \/jira <command> \[<args>\]/.test(res.text));
@@ -28,7 +28,7 @@ describe('find', () => {
     };
 
     const fields = {
-      token: process.env.SLACK_TOKEN,
+      token: 'foo123',
       text: 'find "SHER-862"',
       response_url: 'https://hooks.slack.com/commands/1234/5678',
     };
@@ -60,7 +60,7 @@ describe('create', () => {
 
   it('creates issue for explicit project', (done) => {
     const fields = {
-      token: process.env.SLACK_TOKEN,
+      token: 'foo123',
       text: 'FOO As a user I should be able to do this when that',
     };
 
@@ -75,7 +75,7 @@ describe('create', () => {
 
   it('creates issue for defualt project', (done) => {
     const fields = {
-      token: process.env.SLACK_TOKEN,
+      token: 'foo123',
       text: 'As a user I should be able to do this when that',
     };
 
