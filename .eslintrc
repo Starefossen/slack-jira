@@ -4,6 +4,7 @@
       "mocha": true
     },
     "rules": {
-      "strict": [0, "never"]
+      "strict": [0, "never"],
+      "no-param-reassign": [2, { "props": false }]
     }
 }
