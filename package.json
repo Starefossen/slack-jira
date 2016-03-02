@@ -6,7 +6,7 @@
   "scripts": {
     "start": "supervisor -w index.js,lib -e js index.js",
     "grunt": "grunt",
-    "lint": "eslint index.js lib/ test/",
+    "lint": "eslint index.js lib/ test.js",
     "test": "mocha -R tap -b --check-leaks test.js",
     "watch": "mocha -R progress -w test.js",
     "semantic-release": "semantic-release"
