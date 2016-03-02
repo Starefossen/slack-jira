@@ -63,8 +63,9 @@ app.post('/api/v1/create/:type', (req, res, next) => {
 
   jira.create(type, project, summary, (err, issue) => {
     if (err) {
-      res.status(401).end('Issue creation failed!');
       console.error(err);
+
+      return res.status(401).end('Issue creation failed!');
     }
 
     res.end(`${type} ${issue.key} created successfully!`);
