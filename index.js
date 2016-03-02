@@ -28,10 +28,6 @@ app.post('/api/v1', (req, res, next) => {
   next();
 });
 
-app.post('/api/v1', (req, res, next) => {
-  cmd(req.body).then(res.end.bind(res));
-});
-
 app.param('type', (req, res, next, type) => {
   const types = new Map([
     ['bug', 'Bug'],
