@@ -186,4 +186,25 @@ describe('assign', () => {
       cb(null, 'Success');
     };
   });
+
+  it('assigns existing issue for default user', (done) => {
+    fields.text = 'FOO-1';
+
+    app.post('/api/v1/assign')
+      .send(fields)
+      .expect(200)
+      .expect((res) => {
+        assert.equal(res.text, 'FOO-1 assigned to @foo!');
+      })
+      .end(done);
+
+    jira.updateIssue = (key, data, cb) => {
+      assert.equal(key, 'FOO-1');
+      assert.deepEqual(data, {
+        fields: { assignee: { name: 'foo.bar' } },
+      });
+
+      cb(null, 'Success');
+    };
+  });
 });

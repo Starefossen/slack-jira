@@ -73,7 +73,7 @@ app.post('/api/v1/create/:type', (req, res) => {
 app.post('/api/v1/assign', (req, res) => {
   const argv = req.body.text.split(' ');
   const issue = argv[0];
-  const userName = (argv[1] || '').replace('@', '');
+  const userName = (argv[1] || '').replace('@', '') || req.body.user_name;
 
   if (!issue || !userName) {
     return res.status(400).end('Usage: /assign [ISSUE] @[USER]');
