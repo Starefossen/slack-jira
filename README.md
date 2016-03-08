@@ -1,10 +1,10 @@
 # Slack Jira
 
-Manage Jira tickets directly from Slack.
-
 ![Slack Jira In Action](https://raw.githubusercontent.com/Starefossen/slack-jira/master/slack-jira.gif)
 
 ## Features
+
+Manage Jira tickets directly from Slack.
 
 * [x] Create Bugs, Tasks, and Stories
 * [x] Assign tickets to yourself, or team members
