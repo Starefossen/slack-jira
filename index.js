@@ -93,6 +93,48 @@ app.post('/api/v1/assign', (req, res) => {
   });
 });
 
+app.param('status', (req, res, next, status) => {
+  if (!jira.TRANSITIONS.has(status)) {
+    return res.status(400).end(`Invalid status ${status}`);
+  }
+
+  return next();
+});
+
+app.post('/api/v1/issue/:status', (req, res) => {
+  const status = req.params.status;
+  const user = jira.USERS.get(req.body.user_name);
+
+  const argv = req.body.text.split(' ');
+  const key = argv.splice(0, 1)[0];
+  const comment = argv.join(' ');
+
+  jira.issue(key, (issueErr, issue) => {
+    if (issueErr) { throw issueErr; }
+
+    if (!issue || issue.errors) {
+      return res.status(404).end(`Issue ${key} was not found!`);
+    }
+
+    // issue is not in the sprint
+    if (!issue.fields.sprint) {
+      console.log('issue not in a sprint');
+
+      // jira.sprint((err, sprint) => {
+      //   if (err) { throw err; }
+
+      //   console.log(sprint);
+      // });
+    }
+
+    return jira.transition(key, status, user, comment, (transitionErr) => {
+      if (transitionErr) { throw transitionErr; }
+
+      res.end(`Status for ${key} updated successfully`);
+    });
+  });
+});
+
 // eslint-disable-next-line
 app.use((err, req, res, next) => {
   throw err;

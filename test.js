@@ -3,6 +3,8 @@
 const assert = require('assert');
 const request = require('supertest');
 const app = request(require('./').app);
+
+const jsonist = require('jsonist');
 const jira = require('./lib/jira').jira;
 
 process.env.NODE_ENV = 'testing';
@@ -206,5 +208,68 @@ describe('assign', () => {
 
       cb(null, 'Success');
     };
+  });
+});
+
+describe('issue status', () => {
+  beforeEach(() => {
+    fields.text = 'FOO-1';
+  });
+
+  it('returns 400 error for invalid status', (done) => {
+    app.post('/api/v1/issue/boing')
+      .send(fields)
+      .expect(400)
+      .expect((res) => {
+        assert.equal(res.text, 'Invalid status boing');
+      })
+      .end(done);
+  });
+
+  it('returns 404 error for unknown issue', (done) => {
+    jsonist.get = (url, opts, cb) => {
+      cb(null, {
+        errorMessages: ['The issue no longer exists'],
+        errors: {},
+      });
+    };
+
+    app.post('/api/v1/issue/doing')
+      .send(fields)
+      .expect(404)
+      .expect((res) => {
+        assert.equal(res.text, 'Issue FOO-1 was not found!');
+      })
+      .end(done);
+  });
+
+  it('transitions existing issue to correct status', (done) => {
+    jsonist.get = (url, opts, cb) => {
+      cb(null, {
+        fields: {
+          sprint: { id: 1 },
+        },
+      });
+    };
+
+    jira.transitionIssue = (key, update, cb) => {
+      assert.equal(key, 'FOO-1');
+      assert.deepEqual(update, {
+        transition: { id: '21' },
+        historyMetadata: { actor: { id: 'foo.bar' } },
+      });
+
+      cb(null, 'Success');
+    };
+
+    fields.text = 'FOO-1';
+
+    app.post('/api/v1/issue/doing')
+      .send(fields)
+      .expect(200)
+      .expect((res) => {
+        assert.equal(res.text, 'Status for FOO-1 updated successfully');
+      })
+      .end(done);
   });
 });
