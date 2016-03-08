@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/starefossen/slack-jira#readme",
   "devDependencies": {
-    "eslint": "^2.2.0",
-    "eslint-config-airbnb": "^6.0.2",
+    "eslint": "^2.3.0",
+    "eslint-config-airbnb": "^6.1.0",
     "mocha": "^2.4.5",
     "semantic-release": "^4.3.5",
     "supertest": "^1.2.0",
