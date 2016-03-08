@@ -4,14 +4,14 @@
 
 ## Features
 
-Manage Jira tickets directly from Slack.
+Manage Jira issues directly from Slack.
 
 * [x] Create Bugs, Tasks, and Stories
-* [x] Assign tickets to yourself, or team members
-* [x] Transition tickets between Todo, In Progress, or Done
-* [ ] Add tickets to current sprint
-* [ ] List tickets in current sprint
-* [ ] Link tickets to Slack history
+* [x] Assign issues to yourself, or team members
+* [x] Transition issues between Todo, In Progress, or Done
+* [ ] Add issues to current sprint
+* [ ] List issues in current sprint
+* [ ] Link issues to Slack history
 
 ## Test
 
@@ -33,7 +33,7 @@ $ docker run -e ... -p 8080:8080 starefossen/slack-jira
 | JIRA_URL | Complete URL to your JIRA installation |
 | JIRA_USER | JIRA API user |
 | JIRA_PASS | JIRA API password |
-| JIRA_DEFAULT_PROJECT | Default project for new tickets |
+| JIRA_DEFAULT_PROJECT | Default project for new issues |
 | JIRA_DEFAULT_RAPIDVIEW | Default Rapid View for Sprint items |
 | JIRA_USERS | Slack to JIRA user translation |
 | SLACK_TOKENS | List of valid Slack tokens (comma seperated) |
