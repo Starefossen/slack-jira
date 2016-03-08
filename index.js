@@ -137,6 +137,8 @@ app.post('/api/v1/issue/:status', (req, res) => {
 
 // eslint-disable-next-line
 app.use((err, req, res, next) => {
+  res.end('ε(´סּ︵סּ`)з');
+
   throw err;
 });
 
