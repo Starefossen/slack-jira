@@ -9,7 +9,8 @@ Manage Jira tickets directly from Slack.
 * [x] Create Bugs, Tasks, and Stories
 * [x] Assign tickets to yourself, or team members
 * [x] Transition tickets between Todo, In Progress, or Done
-* [ ] Add tickets to current Sprint
+* [ ] Add tickets to current sprint
+* [ ] List tickets in current sprint
 * [ ] Link tickets to Slack history
 
 ## Test
